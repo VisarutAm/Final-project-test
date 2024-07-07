@@ -17,8 +17,8 @@ function RegisterPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
-      fullname,
-      tel,
+      full_name: fullname,
+      tel_num: tel,
       email,
       password,
     };

@@ -20,7 +20,6 @@ authRouter.post("/register", async (req, res) => {
 
   return res.json({
     message: "User has been created successfully",
-    data,
   });
 });
 
