@@ -1,7 +1,11 @@
-import "./App.css";
+import RegisterPage from "./pages/RegisterPage";
 
 function Apps() {
-  return <div className="text-red-700">this is app</div>;
+  return (
+    <>
+      <RegisterPage />
+    </>
+  );
 }
 
 export default Apps;
