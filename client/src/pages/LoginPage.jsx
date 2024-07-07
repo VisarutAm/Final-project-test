@@ -1,15 +1,21 @@
 import { useState } from "react";
+import { useAuth } from "../contexts/authentication";
 import FacebookIcon from "../assets/icons/facebook-icon.svg";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       await login({ email, password });
+      navigate("/");
     } catch (err) {
       setError("Invalid email or password");
     }
@@ -83,7 +89,12 @@ function LoginPage() {
             </div>
           </form>
           <div className="mt-4 text-center">
-            <button className="text-blue-600 hover:underline">ลงทะเบียน</button>
+            <button
+              onClick={() => navigate("/register")}
+              className="text-blue-600 hover:underline"
+            >
+              ลงทะเบียน
+            </button>
           </div>
         </div>
       </div>

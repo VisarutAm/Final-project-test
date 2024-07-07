@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useAuth } from "../contexts/authentication";
 import FacebookIcon from "../assets/icons/facebook-icon.svg";
+import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {
   const [fullname, setFullname] = useState("");
@@ -7,7 +9,10 @@ function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
+
+  const { register } = useAuth();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -137,7 +142,10 @@ function RegisterPage() {
             </div>
           </form>
           <div className="mt-4 text-center">
-            <button className="text-blue-600 hover:underline">
+            <button
+              onClick={() => navigate("/login")}
+              className="text-blue-600 hover:underline"
+            >
               กลับไปหน้าเข้าสู่ระบบ
             </button>
           </div>

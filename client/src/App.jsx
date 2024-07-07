@@ -1,11 +1,10 @@
-import LoginPage from "./pages/LoginPage";
+import { useAuth } from "./contexts/authentication";
+import AuthenticatedApp from "./pages/AuthenticatedApp";
+import UnauthenticatedApp from "./pages/UnauthenticatedApp";
 
 function Apps() {
-  return (
-    <>
-      <LoginPage />
-    </>
-  );
+  const auth = useAuth();
+  return auth.isAuthenticated ? <AuthenticatedApp /> : <UnauthenticatedApp />;
 }
 
 export default Apps;
