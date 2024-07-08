@@ -1,20 +1,10 @@
-import React from "react";
-import Navbar from "./components/Navbar";
-import Header from "./components/Header";
-import Services from "./components/Services";
-import Footer from "./components/Footer";
-import Body from "./components/Body";
+import { useAuth } from "./contexts/authentication";
+import AuthenticatedApp from "./pages/AuthenticatedApp";
+import UnauthenticatedApp from "./pages/UnauthenticatedApp";
 
-const App = () => {
-  return (
-    <div>
-      <Navbar />
-      <Header />
-      <Services />
-      <Body />
-      <Footer />
-    </div>
-  );
-};
-
+function Apps() {
+  const auth = useAuth();
+  return auth.isAuthenticated ? <AuthenticatedApp /> : <UnauthenticatedApp />;
+}
+  
 export default App;
