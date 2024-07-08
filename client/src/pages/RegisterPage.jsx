@@ -4,7 +4,8 @@ import FacebookIcon from "../assets/icons/facebook-icon.svg";
 import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {
-  const [fullname, setFullname] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [tel, setTel] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +18,8 @@ function RegisterPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
-      full_name: fullname,
+      firstname,
+      lastname,
       tel_num: tel,
       email,
       password,
@@ -36,18 +38,34 @@ function RegisterPage() {
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
-                htmlFor="fullname"
+                htmlFor="firstname"
                 className="block text-sm font-medium text-gray-700"
               >
-                ชื่อ - นามสกุล
+                ชื่อ
               </label>
               <input
                 type="text"
-                id="fullname"
-                value={fullname}
-                onChange={(e) => setFullname(e.target.value)}
+                id="firstname"
+                value={firstname}
+                onChange={(e) => setFirstname(e.target.value)}
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                placeholder="กรุณากรอกชื่อ นามสกุล"
+                placeholder="กรุณากรอกชื่อ"
+              />
+            </div>
+            <div className="mb-4">
+              <label
+                htmlFor="lastname"
+                className="block text-sm font-medium text-gray-700"
+              >
+                นามสกุล
+              </label>
+              <input
+                type="text"
+                id="lastname"
+                value={lastname}
+                onChange={(e) => setLastname(e.target.value)}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="กรุณากรอกนามสกุล"
               />
             </div>
             <div className="mb-4">

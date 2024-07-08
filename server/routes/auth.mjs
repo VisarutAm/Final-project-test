@@ -6,13 +6,15 @@ import supabase from "../utils/db.mjs";
 const authRouter = Router();
 
 authRouter.post("/register", async (req, res) => {
-  const { full_name, tel_num, email, password } = req.body;
+  const { firstname, lastname, tel_num, email, password } = req.body;
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const { error } = await supabase
     .from("users")
-    .insert([{ full_name, tel_num, email, password: hashedPassword }]);
+    .insert([
+      { firstname, lastname, tel_num, email, password: hashedPassword },
+    ]);
 
   if (error) {
     return res.status(400).json({ message: error.message });
