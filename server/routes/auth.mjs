@@ -12,9 +12,7 @@ authRouter.post("/register", async (req, res) => {
 
   const { error } = await supabase
     .from("users")
-    .insert([
-      { full_name, tel_num, email, password: hashedPassword, roll: "user" },
-    ]);
+    .insert([{ full_name, tel_num, email, password: hashedPassword }]);
 
   if (error) {
     return res.status(400).json({ message: error.message });
