@@ -10,9 +10,11 @@ authRouter.post("/register", async (req, res) => {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("users")
-    .insert([{ full_name, tel_num, email, password: hashedPassword }]);
+    .insert([
+      { full_name, tel_num, email, password: hashedPassword, roll: "user" },
+    ]);
 
   if (error) {
     return res.status(400).json({ message: error.message });
