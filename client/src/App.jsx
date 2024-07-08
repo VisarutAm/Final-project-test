@@ -6,5 +6,5 @@ function Apps() {
   const auth = useAuth();
   return auth.isAuthenticated ? <AuthenticatedApp /> : <UnauthenticatedApp />;
 }
-
-export default Apps;
+  
+export default App;
