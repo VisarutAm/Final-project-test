@@ -19,7 +19,10 @@ function AuthProvider(props) {
       await axios.post("http://localhost:4000/auth/register", data);
       navigate("/login");
     } catch (error) {
-      setState({ ...state, error: "Registration failed" });
+      setState({
+        ...state,
+        error: error.response?.data?.message || "Registration failed",
+      });
     }
   };
 
@@ -32,7 +35,10 @@ function AuthProvider(props) {
       setState({ ...state, user: userDataFromToken });
       navigate("/");
     } catch (error) {
-      setState({ ...state, error: "Invalid email or password" });
+      setState({
+        ...state,
+        error: error.response?.data?.message || "Invalid email or password",
+      });
     }
   };
 
