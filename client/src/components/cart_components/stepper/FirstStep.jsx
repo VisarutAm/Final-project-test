@@ -59,15 +59,8 @@ export default function FirstStep({ activeStep }) {
                   borderColor={"#4C7FF4"}
                 />
               )}
-              sx={{
-                "& .MuiStepLabel-label": {
-                  color: blue[500],
-                  fontFamily: "Prompt",
-                  fontSize: 16,
-                },
-              }}
             >
-              รายการ
+              <p className="text-blue-500 font-prompt text-[16px]">รายการ</p>
             </StepLabel>
           </Step>
           <Step>
