@@ -1,10 +1,10 @@
 function BottomNavigator() {
   return (
-    <div className="container h-[92px] bg-white border-solid border-t-[1px] border-[#CCD0D7] flex flex-row justify-between items-center px-[11%] mt-[30px] w-full fixed bottom-0">
-      <button className="button-container w-[164px] h-[44px] bg-white rounded-[8px] border-solid border-[1px] border-[#336DF2] text-[#336DF2] flex justify-center items-center">
+    <div className="bottom-navigator w-full h-[92px] px-[11%] bg-white border-soild border-[1px] border-t-gray-300 flex justify-between items-center fixed bottom-0">
+      <button className="w-[164px] h-[44px] text-center border-soild border-[1px] border-blue-600 rounded-[8px] text-blue-600">
         {"< ย้อนกลับ"}
       </button>
-      <button className="button-container w-[164px] h-[44px] bg-[#CCD0D7] rounded-[8px] border-solid border-[1px] border-[#CCD0D7] text-[#EFEFF2] flex justify-center items-center">
+      <button className="w-[164px] h-[44px] text-center border-soild border-[1px] bg-gray-300 rounded-[8px] text-gray-100">
         {"ดำเนินการต่อ >"}
       </button>
     </div>
