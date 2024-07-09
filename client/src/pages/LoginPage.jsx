@@ -132,13 +132,7 @@ function LoginPage() {
               )}
             </div>
             {state.error && (
-              <div className="mb-4 text-red-600">
-                {state.error === "User not found"
-                  ? "ไม่พบผู้ใช้งานในระบบในระบบ"
-                  : state.error === "Invalid password"
-                  ? "รหัสผ่านไม่ถูกต้อง"
-                  : state.error}
-              </div>
+              <div className="mb-4 text-red-600">{state.error}</div>
             )}
             <div className="mb-4">
               <button

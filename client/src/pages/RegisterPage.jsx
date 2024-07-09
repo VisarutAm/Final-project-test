@@ -11,6 +11,7 @@ function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isChecked, setIsChecked] = useState(false);
+
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
@@ -38,7 +39,7 @@ function RegisterPage() {
     return newErrors;
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     const newErrors = validateFields();
@@ -50,7 +51,7 @@ function RegisterPage() {
         email,
         password,
       };
-      await register(data);
+      register(data);
     }
   };
 
@@ -302,11 +303,7 @@ function RegisterPage() {
               <p className="text-red-500 text-xs mt-1">{errors.checkbox}</p>
             )}
             {state.error && (
-              <div className="mb-4 text-red-600">
-                {state.error === "User already exists"
-                  ? "อีเมลนี้ถูกใช้งานแล้ว"
-                  : state.error}
-              </div>
+              <div className="mb-4 text-red-600">{state.error}</div>
             )}
             <div className="mb-4">
               <button

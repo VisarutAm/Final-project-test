@@ -57,6 +57,18 @@ authRouter.post("/register", async (req, res) => {
   }
 
   try {
+    const { data: existingUser } = await supabase
+      .from("users")
+      .select("email")
+      .eq("email", email)
+      .single();
+
+    if (existingUser) {
+      return res.status(400).json({
+        message: "อีเมลนี้มีผู้ใช้งานอยู่แล้ว",
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const profileImage = generateAvatarUrl(firstname, lastname);
 
@@ -68,6 +80,7 @@ authRouter.post("/register", async (req, res) => {
         email,
         password: hashedPassword,
         profile_image: profileImage,
+        role: "user",
       },
     ]);
 
@@ -95,7 +108,7 @@ authRouter.post("/login", async (req, res) => {
 
     if (!user) {
       return res.status(404).json({
-        message: "User not found",
+        message: "ไม่พบผู้ใช้งานในระบบ",
       });
     }
 
@@ -103,13 +116,13 @@ authRouter.post("/login", async (req, res) => {
 
     if (!isValidPassword) {
       return res.status(400).json({
-        message: "Invalid password",
+        message: "รหัสผ่านผิด",
       });
     }
 
     const token = jwt.sign(
       {
-        id: user.id,
+        id: user.user_id,
         firstname: user.firstname,
         lastname: user.lastname,
         email: user.email,
