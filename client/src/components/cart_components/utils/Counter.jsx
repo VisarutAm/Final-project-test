@@ -22,7 +22,7 @@ function Counter() {
         {" "}
         -{" "}
       </button>
-      <div className="counter-container w-[54px] h-[43px] text-[16px] flex items-center justify-center">
+      <div className="counter-container w-[54px] h-[43px] text-[16px] text-[#4B5160] flex items-center justify-center">
         {counter}
       </div>
       <button

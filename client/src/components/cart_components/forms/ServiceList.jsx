@@ -1,11 +1,6 @@
-import { useState } from "react";
 import Counter from "../utils/Counter";
 
 function ServiceList() {
-  const [counter, setCounter] = useState(0);
-  const handlePlus = () => {
-    setCounter(counter + 1);
-  };
   return (
     <div className="background w-full min-h-full pl-[160px] pt-[111px]">
       <div className="container w-[735px] h-auto bg-white borer-solid border-[1px] border-[#CCD0D7] rounded-[8px] flex flex-col p-[24px]">

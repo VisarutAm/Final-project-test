@@ -8,7 +8,7 @@ import BottomNavigator from "../components/cart_components/BottomNavigator";
 
 function CartPage_1() {
   return (
-    <div className="background bg-[#F3F4F6] min-w-screen min-h-screen p-0 m-0 box-border relative flex flex-col">
+    <div className="background bg-[#F3F4F6] max-w-screen min-h-[1135px] p-0 m-0 relative">
       <Navbar />
       <ServiceImage />
       <MuiBreadcrumbs />
