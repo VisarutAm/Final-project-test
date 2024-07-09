@@ -5,6 +5,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActions, Box } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import { useNavigate } from "react-router-dom";
 
 const categoryStyles = {
   บริการทั่วไป: {
@@ -22,6 +23,11 @@ const categoryStyles = {
 };
 
 const ServiceCard = ({ service }) => {
+  const navigate = useNavigate();
+  const handleMenuItemClick = (path) => {
+    navigate(path);
+  };
+
   const categoryStyle = categoryStyles[service.category.trim()] || {};
 
   return (
@@ -56,12 +62,9 @@ const ServiceCard = ({ service }) => {
         </Box>
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary">
-          <p className="font-prompt text-[14px] underline decoration-solid">
-            เลือกบริการ
-          </p>
-        </Button>
-      </CardActions>
+        <button className="font-prompt text-[16px] text-[#336DF2] underline decoration-solid" 
+        onClick={() => handleMenuItemClick("/cart")}>เลือกบริการ</button>
+        </CardActions>
     </Card>
   );
 };
