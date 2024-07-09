@@ -61,7 +61,7 @@ export default function FirstStep({ activeStep }) {
               )}
               sx={{
                 "& .MuiStepLabel-label": {
-                  color: blue[600],
+                  color: blue[500],
                   fontFamily: "Prompt",
                   fontSize: 16,
                 },
