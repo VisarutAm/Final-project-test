@@ -1,5 +1,5 @@
-import ServiceImage from "../components/cart_components/serviceImage";
-import MuiBreadcrumbs from "../components/cart_components/muiBreadcrumbs";
+import ServiceImage from "../components/cart_components/ServiceImage";
+import MuiBreadcrumbs from "../components/cart_components/MuiBreadcrumbs";
 import Navbar from "../components/Navbar";
 import FirstStep from "../components/cart_components/stepper/FirstStep";
 import ServiceList from "../components/cart_components/forms/ServiceList";

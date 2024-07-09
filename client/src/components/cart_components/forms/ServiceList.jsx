@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function ServiceList() {
   const [counter, setCounter] = useState(0);
+  const handlePlus = () => {};
   return (
     <div className="background w-full min-h-full pl-[160px] pt-[111px]">
       <div className="container w-[735px] h-auto bg-white borer-solid border-[1px] border-[#CCD0D7] rounded-[8px] flex flex-col p-[24px]">
@@ -33,7 +34,7 @@ function ServiceList() {
                 {" "}
                 -{" "}
               </button>
-              <div className="counter-container w-[54px] h-[43px] text-[16px]">
+              <div className="counter-container w-[54px] h-[43px] text-[16px] flex items-center justify-center">
                 {counter}
               </div>
               <button className="w-[43px] h-[43px] border-solid border-[1px] border-[#336DF2] rounded-[8px] text-[#336DF2] text-[20px]">
