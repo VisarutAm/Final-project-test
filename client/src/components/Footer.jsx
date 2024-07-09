@@ -37,16 +37,16 @@ const Footer = () => {
         </div>
       </div>
       {/* แสดงเฉพาะ pc */}
-      <div class="mt-4 pb-4 pt-4 flex flex-col md:flex-row items-center justify-between bg-gray-100 hidden sm:block">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
-          <p class="text-gray-600 text-sm">
+      <div className="mt-4 pb-4 pt-4 flex-col md:flex-row items-center justify-between bg-gray-100 hidden sm:block">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+          <p className="text-gray-600 text-sm">
             &copy; 2021 HomeServices.com All rights reserved
           </p>
-          <div class="flex space-x-4 md:mt-0">
-            <a href="#" class="text-gray-600 text-sm">
+          <div className="flex space-x-4 md:mt-0">
+            <a href="#" className="text-gray-600 text-sm">
               เงื่อนไขและข้อตกลงการใช้งานเว็บไซต์
             </a>
-            <a href="#" class="text-gray-600 text-sm">
+            <a href="#" className="text-gray-600 text-sm">
               นโยบายความเป็นส่วนตัว
             </a>
           </div>
@@ -54,19 +54,19 @@ const Footer = () => {
       </div>
       {/* แสดงเฉพะา Mobile */}
 
-      <div class="mt-4 pb-4 pt-4 flex flex-col md:flex-row items-center justify-between bg-gray-100 md:hidden">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row items-left justify-between">
-          <div class="flex space-x-4 md:mt-0">
-            <a href="#" class="text-gray-600 text-sm">
+      <div className="mt-4 pb-4 pt-4 flex flex-col md:flex-row items-center justify-between bg-gray-100 md:hidden">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row items-left justify-between">
+          <div className="flex space-x-4 md:mt-0">
+            <a href="#" className="text-gray-600 text-sm">
               เงื่อนไขและข้อตกลงการใช้งานเว็บไซต์
             </a>
           </div>
-          <div class="flex space-x-4 md:mt-0 pt-1">
-            <a href="#" class="text-gray-600 text-sm">
+          <div className="flex space-x-4 md:mt-0 pt-1">
+            <a href="#" className="text-gray-600 text-sm">
               นโยบายความเป็นส่วนตัว
             </a>
           </div>
-          <p class="text-gray-600 text-sm mt-2">
+          <p className="text-gray-600 text-sm mt-2">
             &copy; 2021 HomeServices.com All rights reserved
           </p>
         </div>

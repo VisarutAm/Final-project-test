@@ -1,8 +1,10 @@
 import React from "react";
 import SellTag from "../assets/images/SellTag.png";
 import exampleImage from "../assets/example.png";
+import { useNavigate } from "react-router-dom";
 
 const Services = () => {
+  const navigate = useNavigate();
   return (
     <section className="py-8 lg:py-16">
       <div className="container mx-auto px-4">
@@ -94,7 +96,10 @@ const Services = () => {
           {/* ไว้เรนเด้อ */}
         </div>
         <div className="text-center mt-6 lg:mt-8">
-          <button className="px-4 lg:px-6 py-2 bg-blue-500 text-white rounded">
+          <button
+            onClick={() => navigate("/servicelist")}
+            className="px-4 lg:px-6 py-2 bg-blue-500 text-white rounded"
+          >
             ดูบริการทั้งหมด
           </button>
         </div>

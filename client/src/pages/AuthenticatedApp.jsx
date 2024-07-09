@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import HomePage from "./HomePage";
+import HomePage_user from "./HomePage_user";
 import NotFoundPage from "./NotFoundPage";
 import ServiceList from "./ServiceList";
 
@@ -7,7 +7,7 @@ function AuthenticatedApp() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage_user />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/servicelist" element={<ServiceList />} />
       </Routes>

@@ -1,7 +1,12 @@
 import React from "react";
 import PointGuy from "../assets/images/PointGuy.png";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const handleMenuItemClick = (path) => {
+    navigate(path);
+  };
+  const navigate = useNavigate();
   return (
     <header className="bg-blue-100 py-4 lg:py-12">
       <div className="container mx-auto px-4 lg:px-10%">
@@ -16,7 +21,10 @@ const Header = () => {
             <p className="text-gray-700 mt-2 lg:mt-6 text-sm sm:text-base lg:text-lg">
               ซ่อมเครื่องใช้ไฟฟ้า ซ่อมแอร์ ทำความสะอาดบ้าน โดยพนักงานมืออาชีพ
             </p>
-            <button className="mt-4 px-4 sm:px-6 py-2 bg-blue-500 text-white rounded">
+            <button
+              onClick={() => handleMenuItemClick("/servicelist")}
+              className="mt-4 px-4 sm:px-6 py-2 bg-blue-500 text-white rounded"
+            >
               เช็คราคาบริการ
             </button>
           </div>

@@ -8,15 +8,20 @@ const Navbar = () => {
     <nav className="bg-white shadow-md w-full">
       <div className="container mx-auto px-4 py-2 flex justify-between items-center">
         <div className="flex items-center space-x-2 sm:space-x-4">
-          <img
-            src={HouseLogo}
-            alt="HomeServices Logo"
-            className="h-8 sm:h-10"
-          />
-          <a href="#" className="text-blue-500 text-lg sm:text-2xl font-bold">
+          <a href="/">
+            <img
+              src={HouseLogo}
+              alt="HomeServices Logo"
+              className="h-8 sm:h-10"
+            />
+          </a>
+          <a href="/" className="text-blue-500 text-lg sm:text-2xl font-bold">
             HomeServices
           </a>
-          <a href="#" className="text-black text-sm sm:text-base pt-1">
+          <a
+            href="/servicelist"
+            className="text-black text-sm sm:text-base pt-1"
+          >
             บริการของเรา
           </a>
         </div>
