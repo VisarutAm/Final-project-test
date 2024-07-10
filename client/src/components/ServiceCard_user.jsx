@@ -24,7 +24,7 @@ const categoryStyles = {
 
 const ServiceCard = ({ service }) => {
   const navigate = useNavigate();
-  const handleMenuItemClick = (path) => {
+  const handleClick = (path) => {
     navigate(path);
   };
 
@@ -63,7 +63,7 @@ const ServiceCard = ({ service }) => {
       </CardContent>
       <CardActions>
         <button className="font-prompt text-[16px] text-[#336DF2] underline decoration-solid" 
-        onClick={() => handleMenuItemClick("/login")}>เลือกบริการ</button>
+        onClick={() => handleClick("/cart")}>เลือกบริการ</button>
         </CardActions>
     </Card>
   );

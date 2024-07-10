@@ -1,7 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import HomePage_user from "./HomePage_user";
 import NotFoundPage from "./NotFoundPage";
-import ServiceList from "./ServiceList";
+import ServiceList_user from "./ServiceList_user";
+import CartPage_1 from "./CartPage_1";
 
 function AuthenticatedApp() {
   return (
@@ -9,7 +10,8 @@ function AuthenticatedApp() {
       <Routes>
         <Route path="/" element={<HomePage_user />} />
         <Route path="*" element={<NotFoundPage />} />
-        <Route path="/servicelist" element={<ServiceList />} />
+        <Route path="/servicelist" element={<ServiceList_user/>} />
+        <Route path="/cart" element={<CartPage_1 />} />
       </Routes>
     </div>
   );
