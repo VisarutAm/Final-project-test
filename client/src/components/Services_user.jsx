@@ -1,6 +1,6 @@
 import React ,{ useState ,useEffect} from "react";
 import axios from "axios";
-import ServiceCard from "./ServiceCard";
+import ServiceCard from "./ServiceCard_user";
 import { useNavigate } from "react-router-dom";
 
 const Services = () => {

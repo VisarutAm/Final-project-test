@@ -3,7 +3,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import CategoryFilter from "./filters/CategoryFilter";
 import PriceFilter from "./filters/PriceFilter";
 import SortFilter from "./filters/SortFilter";
-import ServiceCard from "./ServiceCard";
+import ServiceCard from "./ServiceCard_user";
 import axios from "axios";
 
 const SearchBar = () => {
