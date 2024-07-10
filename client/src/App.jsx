@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "./contexts/authentication";
 import { useAdminAuth } from "./contexts/adminAuthentication";
 import AuthenticatedApp from "./pages/AuthenticatedApp";
@@ -9,13 +9,17 @@ function App() {
   const { state: authState } = useAuth();
   const { state: adminState } = useAdminAuth();
 
-  if (adminState.admin) {
-    return <AdminAuthenticatedApp />;
-  } else if (authState.user) {
-    return <AuthenticatedApp />;
-  } else {
-    return <UnauthenticatedApp />;
-  }
+  return (
+    <div>
+      {adminState.admin ? (
+        <AdminAuthenticatedApp />
+      ) : authState.user ? (
+        <AuthenticatedApp />
+      ) : (
+        <UnauthenticatedApp />
+      )}
+    </div>
+  );
 }
 
 export default App;

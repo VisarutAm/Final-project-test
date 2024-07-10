@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import jwtDecode from "jwt-decode"; // ใช้ jwt-decode จาก package
+import { useNavigate, useLocation } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = React.createContext();
 
@@ -13,14 +13,27 @@ function AuthProvider(props) {
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      const userDataFromToken = jwtDecode(token);
-      setState((prevState) => ({ ...prevState, user: userDataFromToken }));
+      try {
+        const userDataFromToken = jwtDecode(token);
+        setState((prevState) => ({
+          ...prevState,
+          user: userDataFromToken,
+          error: null,
+        }));
+      } catch (error) {
+        console.error("Token decoding failed", error);
+      }
     }
   }, []);
+
+  useEffect(() => {
+    setState((prevState) => ({ ...prevState, error: null }));
+  }, [location.pathname]);
 
   const register = async (data) => {
     try {
@@ -29,7 +42,7 @@ function AuthProvider(props) {
     } catch (error) {
       setState({
         ...state,
-        error: error.response?.data?.message || "การลงทะเบียนล้มเหลว",
+        error: error.response?.data?.error || "การลงทะเบียนล้มเหลว",
       });
     }
   };
@@ -39,11 +52,11 @@ function AuthProvider(props) {
       const result = await axios.post(
         "http://localhost:4000/auth/login/user",
         data
-      ); // เปลี่ยน endpoint สำหรับผู้ใช้
+      );
       const token = result.data.token;
       localStorage.setItem("token", token);
       const userDataFromToken = jwtDecode(token);
-      setState({ ...state, user: userDataFromToken });
+      setState({ ...state, user: userDataFromToken, error: null });
       navigate("/");
     } catch (error) {
       setState({
@@ -58,7 +71,7 @@ function AuthProvider(props) {
     setState({ ...state, user: null, error: null });
   };
 
-  const isAuthenticated = Boolean(localStorage.getItem("token"));
+  const isAuthenticated = Boolean(state.user);
 
   return (
     <AuthContext.Provider

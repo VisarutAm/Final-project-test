@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/authentication";
 import FacebookIcon from "../assets/icons/facebook-icon.svg";
-import { useNavigate } from "react-router-dom";
 import ExclamationIcon from "../assets/icons/exclamation-icon.svg";
+import { useNavigate } from "react-router-dom";
+import { checkRegisterErrors, updateErrors } from "../utils/errors";
+import Navbar from "../components/Navbar";
 
 function RegisterPage() {
   const [firstname, setFirstname] = useState("");
@@ -11,107 +13,70 @@ function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isChecked, setIsChecked] = useState(false);
-
-  const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
+  const [errors, setErrors] = useState({});
   const { register, state } = useAuth();
-
-  const validateFields = () => {
-    let newErrors = {};
-
-    if (!firstname) newErrors.firstname = "กรุณากรอกชื่อ";
-    if (!lastname) newErrors.lastname = "กรุณากรอกนามสกุล";
-
-    const telPattern = /^[0-9]{10}$/;
-    if (!tel || !telPattern.test(tel))
-      newErrors.tel = "กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (10 หลัก)";
-
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (!email || !emailPattern.test(email))
-      newErrors.email = "กรุณากรอกอีเมลให้ถูกต้อง";
-
-    if (!password) newErrors.password = "กรุณากรอกรหัสผ่าน";
-
-    if (!isChecked) newErrors.checkbox = "กรุณายอมรับข้อตกลงและเงื่อนไข";
-
-    setErrors(newErrors);
-    return newErrors;
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const newErrors = validateFields();
-    if (Object.keys(newErrors).length === 0) {
-      const data = {
-        firstname,
-        lastname,
-        tel_num: tel,
-        email,
-        password,
-      };
-      register(data);
-    }
-  };
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
+    const { id, value, checked, type } = e.target;
     let newErrors = { ...errors };
 
-    switch (id) {
-      case "firstname":
-        setFirstname(value);
-        if (value) {
-          delete newErrors.firstname;
-        } else {
-          newErrors.firstname = "กรุณากรอกชื่อ";
-        }
-        break;
-      case "lastname":
-        setLastname(value);
-        if (value) {
-          delete newErrors.lastname;
-        } else {
-          newErrors.lastname = "กรุณากรอกนามสกุล";
-        }
-        break;
-      case "tel":
-        const telPattern = /^[0-9]{10}$/;
-        setTel(value);
-        if (value && telPattern.test(value)) {
-          delete newErrors.tel;
-        } else {
-          newErrors.tel = "กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (10 หลัก)";
-        }
-        break;
-      case "email":
-        const emailPattern =
-          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        setEmail(value);
-        if (value && emailPattern.test(value)) {
-          delete newErrors.email;
-        } else {
-          newErrors.email = "กรุณากรอกอีเมลให้ถูกต้อง";
-        }
-        break;
-      case "password":
-        setPassword(value);
-        if (value) {
-          delete newErrors.password;
-        } else {
-          newErrors.password = "กรุณากรอกรหัสผ่าน";
-        }
-        break;
-      default:
-        break;
+    if (type === "checkbox") {
+      setIsChecked(checked);
+      newErrors = updateErrors("isChecked", checked, newErrors);
+    } else {
+      switch (id) {
+        case "firstname":
+          setFirstname(value);
+          newErrors = updateErrors("firstname", value, newErrors);
+          break;
+        case "lastname":
+          setLastname(value);
+          newErrors = updateErrors("lastname", value, newErrors);
+          break;
+        case "tel":
+          setTel(value);
+          newErrors = updateErrors("tel", value, newErrors);
+          break;
+        case "email":
+          setEmail(value);
+          newErrors = updateErrors("email", value, newErrors);
+          break;
+        case "password":
+          setPassword(value);
+          newErrors = updateErrors("password", value, newErrors);
+          break;
+        default:
+          break;
+      }
     }
+
     setErrors(newErrors);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = {
+      firstname,
+      lastname,
+      email,
+      password,
+      tel_num: tel,
+      isChecked,
+    };
+    const validationErrors = checkRegisterErrors(formData);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+    } else {
+      setErrors({});
+      await register(formData);
+    }
   };
 
   return (
     <>
-      {/* รอแก้ เพิ่ม navbar */}
+      <Navbar />
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="w-full max-w-md p-8 bg-white rounded-lg border border-gray-300 shadow-md">
           <h2 className="text-2xl font-medium mb-6 text-center text-blue-900">
@@ -186,7 +151,7 @@ function RegisterPage() {
                 className="block text-sm font-medium text-gray-700"
               >
                 เบอร์โทรศัพท์
-                {errors.tel && <span className="text-red-500">*</span>}
+                {errors.tel_num && <span className="text-red-500">*</span>}
               </label>
               <div className="relative">
                 <input
@@ -195,11 +160,11 @@ function RegisterPage() {
                   value={tel}
                   onChange={handleChange}
                   className={`mt-1 block w-full px-3 py-2 border ${
-                    errors.tel ? "border-red-500" : "border-gray-300"
+                    errors.tel_num ? "border-red-500" : "border-gray-300"
                   } rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
                   placeholder="กรุณากรอกเบอร์โทรศัพท์"
                 />
-                {errors.tel && (
+                {errors.tel_num && (
                   <img
                     src={ExclamationIcon}
                     alt="error"
@@ -207,8 +172,8 @@ function RegisterPage() {
                   />
                 )}
               </div>
-              {errors.tel && (
-                <p className="text-red-500 text-xs mt-1">{errors.tel}</p>
+              {errors.tel_num && (
+                <p className="text-red-500 text-xs mt-1">{errors.tel_num}</p>
               )}
             </div>
             <div className="mb-4">
@@ -282,7 +247,7 @@ function RegisterPage() {
                 type="checkbox"
                 id="terms"
                 checked={isChecked}
-                onChange={(e) => setIsChecked(e.target.checked)}
+                onChange={handleChange}
                 className="h-4 w-4"
               />
               <label
@@ -290,17 +255,23 @@ function RegisterPage() {
                 className="ml-2 block text-sm text-gray-900"
               >
                 <span className={isHovered ? "text-blue-600" : ""}>ยอมรับ</span>{" "}
-                <a href="#" className="text-blue-600 hover:underline">
+                <button
+                  onClick={() => navigate("/terms")}
+                  className="text-blue-600 hover:underline"
+                >
                   ข้อตกลงและเงื่อนไข
-                </a>{" "}
+                </button>{" "}
                 และ{" "}
-                <a href="#" className="text-blue-600 hover:underline">
+                <button
+                  onClick={() => navigate("/policy")}
+                  className="text-blue-600 hover:underline"
+                >
                   นโยบายความเป็นส่วนตัว
-                </a>
+                </button>
               </label>
             </div>
-            {errors.checkbox && (
-              <p className="text-red-500 text-xs mt-1">{errors.checkbox}</p>
+            {errors.isChecked && (
+              <p className="text-red-500 text-xs mt-1">{errors.isChecked}</p>
             )}
             {state.error && (
               <div className="mb-4 text-red-600">{state.error}</div>
@@ -308,7 +279,7 @@ function RegisterPage() {
             <div className="mb-4">
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500 focus:outline-none focus:hover:bg-blue-800"
+                className="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500 focus:outline-none focus:bg-blue-800"
               >
                 ลงทะเบียน
               </button>

@@ -1,51 +1,73 @@
-import React, { useState, useContext, createContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
-const AdminAuthContext = createContext();
+const AdminAuthContext = React.createContext();
 
-export const AdminAuthProvider = ({ children }) => {
+function AdminAuthProvider(props) {
   const [state, setState] = useState({
-    admin: null,
-    loading: false,
+    loading: null,
     error: null,
+    admin: null,
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const adminLogin = async (data) => {
-    setState({ ...state, loading: true });
+  useEffect(() => {
+    const token = localStorage.getItem("admin-token");
+    if (token) {
+      try {
+        const adminDataFromToken = jwtDecode(token);
+        setState((prevState) => ({ ...prevState, admin: adminDataFromToken }));
+      } catch (error) {
+        console.error("Token decoding failed", error);
+        localStorage.removeItem("admin-token");
+        setState({ ...state, admin: null });
+      }
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    setState((prevState) => ({ ...prevState, error: null }));
+  }, [location.pathname]);
+
+  const login = async (data) => {
     try {
       const result = await axios.post(
-        "http://localhost:4000/admin/login",
+        "http://localhost:4000/auth/login/admin",
         data
       );
-      const token = result.data.token;
-      localStorage.setItem("adminToken", token);
-      const adminDataFromToken = jwtDecode(token);
-      setState({ admin: adminDataFromToken, loading: false, error: null });
-      navigate("/admin/dashboard");
+      const { token, admin } = result.data;
+      localStorage.setItem("admin-token", token);
+      setState({ ...state, admin });
+      navigate("/admin");
     } catch (error) {
       setState({
-        admin: null,
-        loading: false,
-        error: error.response?.data?.message || "Invalid email or password",
+        ...state,
+        error: error.response?.data?.error || "อีเมลหรือรหัสผ่านไม่ถูกต้อง",
       });
     }
   };
 
-  const adminLogout = () => {
-    localStorage.removeItem("adminToken");
-    setState({ admin: null, loading: false, error: null });
-    navigate("/admin/login");
+  const logout = () => {
+    localStorage.removeItem("admin-token");
+    setState({ ...state, admin: null, error: null });
+    navigate("/admin");
   };
 
+  const isAuthenticated = Boolean(localStorage.getItem("admin-token"));
+
   return (
-    <AdminAuthContext.Provider value={{ state, adminLogin, adminLogout }}>
-      {children}
+    <AdminAuthContext.Provider
+      value={{ state, login, logout, isAuthenticated }}
+    >
+      {props.children}
     </AdminAuthContext.Provider>
   );
-};
+}
 
-export const useAdminAuth = () => useContext(AdminAuthContext);
+const useAdminAuth = () => React.useContext(AdminAuthContext);
+
+export { AdminAuthProvider, useAdminAuth };

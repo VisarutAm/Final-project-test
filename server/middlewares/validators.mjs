@@ -88,7 +88,6 @@ export const validateLogin = async (req, res, next) => {
     .select("*")
     .eq("email", email)
     .single();
-
   if (error || !user) {
     return res.status(404).json({ error: "ไม่พบผู้ใช้งานในระบบ" });
   }
