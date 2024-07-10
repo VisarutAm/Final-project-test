@@ -36,7 +36,7 @@ const Navbar_user = () => {
 
   return (
     <nav className="bg-white shadow-md w-full">
-      <div className="container mx-auto px-4 py-2 flex justify-between items-center">
+      <div className="container mx-auto px-4 md:px-20 py-2 flex justify-between items-center">
         <div className="flex items-center space-x-2 sm:space-x-4">
           <a href="/">
             <img
