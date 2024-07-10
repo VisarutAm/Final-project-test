@@ -84,6 +84,7 @@ const Navbar_user = () => {
             <CustomMenuItem
               onClick={() => {
                 logout();
+                navigate("/");
               }}
               // className="border-t border-gray-300 pt-1" ใช้ไม่ได้แต่อยากทำให้ได้
             >
