@@ -5,6 +5,7 @@ import PriceFilter from "./filters/PriceFilter";
 import SortFilter from "./filters/SortFilter";
 import ServiceCard from "./ServiceCard";
 import axios from "axios";
+import { ClipLoader } from "react-spinners";
 
 const SearchBar = () => {
   const [services, setServices] = useState([]);
@@ -14,14 +15,17 @@ const SearchBar = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSticky, setIsSticky] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const getServices = async () => {
     try {
       const result = await axios.get(`http://localhost:4000/test`);
-      console.log("Fetched services:", result.data.data); // Debugging step
+      console.log("Fetched services:", result.data.data);
       setServices(result.data.data);
     } catch (error) {
       console.error("Error fetching services:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -147,11 +151,18 @@ const SearchBar = () => {
       </div>
 
       {/* Filtered Services */}
-      <div className="p-4 mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 md:px-32 md:py-16">
-        {filteredServices.map((service) => (
-          <ServiceCard key={service.service_id} service={service} />
-        ))}
-      </div>
+
+      {loading ? (
+        <div className="flex justify-center items-center w-full h-[500px]">
+          <ClipLoader size={200} color={"#123abc"} loading={loading} />
+        </div>
+      ) : (
+        <div className="p-4 mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 md:px-32 md:py-16">
+          {filteredServices.map((service) => (
+            <ServiceCard key={service.service_id} service={service} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
