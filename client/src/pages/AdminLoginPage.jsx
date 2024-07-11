@@ -34,7 +34,6 @@ function AdminLoginPage() {
     } else {
       setErrors({});
       await login(formData);
-      window.location.reload(); // This can be removed once the state update and navigation work correctly.
     }
   };
 

@@ -7,7 +7,6 @@ adminRouter.get("/", (req, res) => {
 });
 
 adminRouter.get("/getdata", (req, res) => {
-  // ใส่โค้ดที่ใช้ดึงข้อมูลที่ต้องการ
   res.json({ message: "นี่คือข้อมูลสำหรับแอดมิน" });
 });
 

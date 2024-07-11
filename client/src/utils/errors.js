@@ -1,18 +1,15 @@
 import { validateRegister, validateLogin } from "./validators";
 
-// ฟังก์ชันตรวจสอบข้อผิดพลาดในการลงทะเบียน
 export const checkRegisterErrors = (formData) => {
   const errors = validateRegister(formData);
   return errors;
 };
 
-// ฟังก์ชันตรวจสอบข้อผิดพลาดในการเข้าสู่ระบบ
 export const checkLoginErrors = (formData) => {
   const errors = validateLogin(formData);
   return errors;
 };
 
-// ฟังก์ชันอัพเดท state ของข้อผิดพลาด
 export const updateErrors = (field, value, errors) => {
   let newErrors = { ...errors };
 

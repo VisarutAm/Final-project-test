@@ -1,24 +1,20 @@
 import supabase from "../utils/db.mjs";
 import bcrypt from "bcrypt";
 
-// ฟังก์ชันตรวจสอบรูปแบบอีเมล
 const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
 
-// ฟังก์ชันตรวจสอบรูปแบบหมายเลขโทรศัพท์ (ประเทศไทย)
 const isValidPhoneNumber = (tel_num) => {
   const phoneRegex = /^[0-9]{10}$/;
   return phoneRegex.test(tel_num);
 };
 
-// ฟังก์ชันตรวจสอบความยาวรหัสผ่าน
 const isValidPassword = (password) => {
   return password.length >= 6;
 };
 
-// ตรวจสอบความถูกต้องของข้อมูลในการลงทะเบียน
 export const validateRegister = async (req, res, next) => {
   const { firstname, lastname, email, password, tel_num } = req.body;
   const errors = [];
@@ -49,7 +45,6 @@ export const validateRegister = async (req, res, next) => {
     return res.status(400).json({ errors });
   }
 
-  // ตรวจสอบว่าอีเมลมีอยู่ในระบบหรือไม่
   const { data: existingUser, error } = await supabase
     .from("users")
     .select("*")
@@ -63,7 +58,6 @@ export const validateRegister = async (req, res, next) => {
   next();
 };
 
-// ตรวจสอบความถูกต้องของข้อมูลในการเข้าสู่ระบบ
 export const validateLogin = async (req, res, next) => {
   const { email, password } = req.body;
   const errors = [];
@@ -82,7 +76,6 @@ export const validateLogin = async (req, res, next) => {
     return res.status(400).json({ errors });
   }
 
-  // ตรวจสอบว่าอีเมลมีอยู่ในระบบหรือไม่
   const { data: user, error } = await supabase
     .from("users")
     .select("*")
@@ -92,13 +85,12 @@ export const validateLogin = async (req, res, next) => {
     return res.status(404).json({ error: "ไม่พบผู้ใช้งานในระบบ" });
   }
 
-  // ตรวจสอบว่ารหัสผ่านถูกต้องหรือไม่
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
     return res.status(400).json({ error: "รหัสผ่านผิด" });
   }
 
-  req.user = user; // ส่งข้อมูลผู้ใช้ไปยัง middleware ถัดไป
+  req.user = user;
   next();
 };

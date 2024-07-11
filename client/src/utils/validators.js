@@ -1,21 +1,17 @@
-// ฟังก์ชันตรวจสอบรูปแบบอีเมล
 export const isValidEmail = (email) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 };
 
-// ฟังก์ชันตรวจสอบรูปแบบหมายเลขโทรศัพท์ (ประเทศไทย)
 export const isValidPhoneNumber = (tel_num) => {
   const phoneRegex = /^[0-9]{10}$/;
   return phoneRegex.test(tel_num);
 };
 
-// ฟังก์ชันตรวจสอบความยาวรหัสผ่าน
 export const isValidPassword = (password) => {
   return password.length >= 6;
 };
 
-// ฟังก์ชัน validate การลงทะเบียน
 export const validateRegister = ({
   firstname,
   lastname,
@@ -56,7 +52,6 @@ export const validateRegister = ({
   return errors;
 };
 
-// ฟังก์ชัน validate การเข้าสู่ระบบ
 export const validateLogin = ({ email, password }) => {
   const errors = {};
 

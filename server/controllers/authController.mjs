@@ -7,7 +7,6 @@ import { validateRegister, validateLogin } from "../middlewares/validators.mjs";
 
 const authRouter = Router();
 
-// ลงทะเบียนผู้ใช้
 authRouter.post("/register", validateRegister, async (req, res) => {
   const { firstname, lastname, email, password, tel_num } = req.body;
 
@@ -22,7 +21,7 @@ authRouter.post("/register", validateRegister, async (req, res) => {
         tel_num,
         email,
         password: hashedPassword,
-        role: "user", // กำหนด role เป็น "user" เสมอ
+        role: "user",
         profile_image: profileImage,
       },
     ]);
@@ -37,7 +36,6 @@ authRouter.post("/register", validateRegister, async (req, res) => {
   }
 });
 
-// เข้าสู่ระบบผู้ใช้
 authRouter.post("/login/user", validateLogin, async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -48,7 +46,6 @@ authRouter.post("/login/user", validateLogin, async (req, res) => {
   }
 });
 
-// เข้าสู่ระบบผู้ดูแลระบบ
 authRouter.post("/login/admin", validateLogin, async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -59,7 +56,6 @@ authRouter.post("/login/admin", validateLogin, async (req, res) => {
   }
 });
 
-// ออกจากระบบ
 authRouter.post("/logout", (req, res) => {
   res.json({ message: "ออกจากระบบสำเร็จ" });
 });
