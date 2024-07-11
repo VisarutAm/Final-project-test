@@ -141,9 +141,7 @@ const ServiceCard = ({ service }) => {
         >
           {service.category}
         </div>
-        <Typography variant="h6" className="text-[18px]">
-          {service.service_name}
-        </Typography>
+        <p className="text-[18px] mb-3">{service.service_name}</p>
         <Box display="flex" alignItems="center" className="text-[14px]">
           <LocalOfferIcon
             style={{
@@ -153,21 +151,20 @@ const ServiceCard = ({ service }) => {
               height: "16px",
             }}
           />
-          <Typography className="text-[14px] text-[#646C80]">
+          <p className="text-[14px] text-[#646C80]">
             {minPrice === maxPrice
               ? `ค่าบริการประมาณ ${minPrice} ฿`
               : `ค่าบริการประมาณ ${minPrice} ฿ - ${maxPrice} ฿`}
-          </Typography>
+          </p>
         </Box>
       </CardContent>
       <CardActions>
-        <Button
-          variant="text"
-          className="font-prompt text-[16px] text-[#336DF2]"
+        <p
+          className="font-prompt text-[16px] text-[#336DF2] ml-3 underline decoration-solid cursor-pointer pb-3"
           onClick={() => handleMenuItemClick("/login")}
         >
           เลือกบริการ
-        </Button>
+        </p>
       </CardActions>
     </Card>
   );
