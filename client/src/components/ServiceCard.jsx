@@ -70,7 +70,7 @@
 //         </Box>
 //       </CardContent>
 //       <CardActions>
-//         <button className="font-prompt text-[16px] text-[#336DF2] underline decoration-solid" 
+//         <button className="font-prompt text-[16px] text-[#336DF2] underline decoration-solid"
 //         onClick={() => handleMenuItemClick("/login")}>เลือกบริการ</button>
 //         </CardActions>
 //     </Card>
@@ -116,7 +116,7 @@ const ServiceCard = ({ service }) => {
   let maxPrice = 0;
 
   if (service.service_detail && service.service_detail.length > 0) {
-    const prices = service.service_detail.map(detail => detail.price);
+    const prices = service.service_detail.map((detail) => detail.price);
     minPrice = Math.min(...prices);
     maxPrice = Math.max(...prices);
   }
@@ -154,9 +154,9 @@ const ServiceCard = ({ service }) => {
             }}
           />
           <Typography className="text-[14px] text-[#646C80]">
-            {service.service_detail && service.service_detail.length > 0
-              ? `ค่าบริการประมาณ ${minPrice} - ${maxPrice} ฿`
-              : "ไม่พบข้อมูลราคา"}
+            {minPrice === maxPrice
+              ? `ค่าบริการประมาณ ${minPrice} ฿`
+              : `ค่าบริการประมาณ ${minPrice} ฿ - ${maxPrice} ฿`}
           </Typography>
         </Box>
       </CardContent>
@@ -174,4 +174,3 @@ const ServiceCard = ({ service }) => {
 };
 
 export default ServiceCard;
-

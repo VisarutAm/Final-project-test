@@ -17,16 +17,14 @@ const SearchBar = () => {
   const [isSticky, setIsSticky] = useState(false);
 
   const getServices = async () => {
-    const result = await axios.get(
-      `http://localhost:4000/serviceslist`
-    );
-    console.log(result.data.data)
+    const result = await axios.get(`http://localhost:4000/serviceslist`);
+    console.log(result.data.data);
     setServices(result.data.data);
   };
 
   useEffect(() => {
     getServices();
-  },[findServices]);
+  }, [findServices]);
 
   const toggleDropdown = (dropdownName) => {
     setOpenDropdown(openDropdown === dropdownName ? null : dropdownName);
