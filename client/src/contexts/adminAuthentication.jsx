@@ -27,7 +27,7 @@ function AdminAuthProvider(props) {
         setState({ ...state, admin: null });
       }
     }
-  }, [location.pathname]);
+  }, []);
 
   useEffect(() => {
     setState((prevState) => ({ ...prevState, error: null }));
