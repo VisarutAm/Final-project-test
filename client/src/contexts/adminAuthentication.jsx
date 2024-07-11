@@ -42,7 +42,7 @@ function AdminAuthProvider(props) {
       const { token, admin } = result.data;
       localStorage.setItem("admin-token", token);
       setState({ ...state, admin });
-      navigate("/admin");
+      window.location.reload();
     } catch (error) {
       setState({
         ...state,
