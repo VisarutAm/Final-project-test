@@ -32,7 +32,8 @@ const Navbar_user = () => {
     handleMenuClose();
   };
 
-  const { logout } = useAuth();
+  const { state, logout } = useAuth();
+  const { user } = state;
 
   return (
     <nav className="bg-white shadow-md w-full">
@@ -56,8 +57,16 @@ const Navbar_user = () => {
           </a>
         </div>
         <div className="flex items-center ml-2 sm:ml-4">
+          <span className="text-gray-700 text-sm font-normal mt-1">
+            {user?.firstname} {user?.lastname}
+            <span style={{ marginLeft: "5px" }}></span>
+          </span>
           <button className="mr-2" onClick={handleAvatarClick}>
-            <img src={avatar} alt="avatar" className="h-8 sm:h-6" />
+            <img
+              src={user?.profile_image || avatar}
+              alt="avatar"
+              className="h-8 sm:h-6 rounded-full"
+            />
           </button>
           <button>
             <img src={bell} alt="bell" className="h-8 sm:h-6" />

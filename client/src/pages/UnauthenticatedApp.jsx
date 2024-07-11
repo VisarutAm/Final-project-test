@@ -6,6 +6,7 @@ import ServiceList from "./ServiceList";
 import PolicyPage from "./PolicyPage";
 import TermsPage from "./TermsPage";
 import AdminLoginPage from "./AdminLoginPage";
+import NotFoundPage from "./NotFoundPage";
 
 function UnauthenticatedApp() {
   return (
@@ -18,6 +19,7 @@ function UnauthenticatedApp() {
         <Route path="/policy" element={<PolicyPage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/admin" element={<AdminLoginPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );

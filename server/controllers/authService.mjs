@@ -1,0 +1,43 @@
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import supabase from "../utils/db.mjs";
+
+export const loginUser = async (email, password, role) => {
+  const { data: user, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("email", email)
+    .eq("role", role)
+    .single();
+
+  if (error || !user) {
+    throw new Error("ไม่พบผู้ใช้งานในระบบ");
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
+    throw new Error("รหัสผ่านไม่ถูกต้อง");
+  }
+
+  const token = jwt.sign(
+    {
+      id: user.id,
+      role: user.role,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      profile_image: user.profile_image,
+    },
+    process.env.SECRET_KEY,
+    { expiresIn: "1h" }
+  );
+
+  return {
+    token,
+    user: {
+      firstname: user.firstname,
+      lastname: user.lastname,
+      profile_image: user.profile_image,
+    },
+  };
+};

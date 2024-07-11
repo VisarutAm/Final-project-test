@@ -1,21 +1,27 @@
-// import { useEffect, useState } from "react";
 import express from "express";
 import servicesRouter from "./routes/services.mjs";
 import cors from "cors";
-import authRouter from "./routes/auth.mjs";
+import authRouter from "./controllers/authController.mjs";
+import adminRouter from "./routes/admins.mjs";
+import {
+  authenticateToken,
+  authorizeAdmin,
+} from "./middlewares/authVerify.mjs";
 
 const app = express();
 const port = 4000;
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    origin: "*" // Or use '*' to allow all origins
+    origin: "*",
   })
 );
 
 app.use(express.json());
+
 app.use("/auth", authRouter);
+
+app.use("/admin", authenticateToken, authorizeAdmin, adminRouter);
 
 app.use("/", servicesRouter);
 
